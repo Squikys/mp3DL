@@ -22,8 +22,10 @@ def ping(url:str,background_tasks: BackgroundTasks):
         tmpdir=tempfile.mkdtemp()
         filepath=""
         if is_valid_spotify_track_url(url=url):
+            print("spotify check")
             filepath = download_spotify_audio(url, tmpdir=tmpdir)
         elif is_valid_youtube_video(url=url):
+            print("youtube check")
             filepath = download_yt_audio(url, tmpdir=tmpdir)
         else :
              return{"response":"invalid URL"}

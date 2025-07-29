@@ -11,8 +11,8 @@ def is_valid_spotify_track_url(url):
     Checks if the given URL is a valid Spotify track URL.
     """
     pattern = r'^https://open\.spotify\.com/track/[A-Za-z0-9]{22}(?:\?si=[A-Za-z0-9]+)?$'
-    if re.match(pattern, url) is None :
-        return False
+    if re.match(pattern, url) is not None :
+        return True
     elif re.match(pattern, url) is not None and is_spotify_track_available(url=url) :
         return True
     else : return False
