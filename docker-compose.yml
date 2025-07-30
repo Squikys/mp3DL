@@ -1,0 +1,11 @@
+name: mp3dl
+services:
+    mp3dl:
+        container_name: mp3dl
+        build:
+          context: ./
+          dockerfile: ./dockerfile
+        init: true
+        ports:
+          - 7000:7000
+        image: mp3dl

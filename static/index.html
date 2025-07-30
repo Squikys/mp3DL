@@ -336,13 +336,18 @@ document
       } else {
         const disposition = response.headers.get("Content-Disposition");
         let filename = "downloaded_file";
+        console.log("Content-Disposition:", disposition);
 
-        if (disposition && disposition.includes("filename=")) {
-          const match = disposition.match(/filename="?(.+?)"?$/);
-          if (match) {
-            filename = match[1];
-          }
-        }
+       if (disposition) {
+  const utf8FilenameMatch = disposition.match(/filename\*=utf-8''(.+)/i);
+  const asciiFilenameMatch = disposition.match(/filename="?([^"]+)"?/);
+
+  if (utf8FilenameMatch) {
+    filename = decodeURIComponent(utf8FilenameMatch[1]);
+  } else if (asciiFilenameMatch) {
+    filename = asciiFilenameMatch[1];
+  }
+} 
 
         const blob = await response.blob();
         const link = document.createElement("a");
