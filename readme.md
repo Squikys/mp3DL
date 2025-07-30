@@ -24,4 +24,9 @@ python main.py
 .\venv\Scripts\activate
 python main.py
 ```
-
+##### you can access the app by going to url `localhost:7000`
+#### If you have `Docker` installed, then use
+```bash
+docker compose up
+```
+#### to run the app
