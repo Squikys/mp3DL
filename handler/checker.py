@@ -23,7 +23,7 @@ def is_valid_youtube_video(url: str) -> bool:
     try:
         with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
             info = ydl.extract_info(url, download=False)
-            if info.get("is_live"):
+            if info and info.get("is_live"):
                 return False  # It's a live video
             return True
     except yt_dlp.utils.DownloadError:

@@ -1,10 +1,13 @@
-from fastapi import FastAPI
-from router.router import download_router
-app=FastAPI()
+from fastapi import FastAPI,Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from router.downloadrouter import download_router
 
-@app.get("/ping")
-def ping():
-    return{"ping":"pong"}
+app=FastAPI()
+template=Jinja2Templates(directory="static")
+@app.get("/",response_class=HTMLResponse)
+def home(request:Request):
+    return template.TemplateResponse("index.html", {"request": request, "message": "Hello, World!"})
 
 app.include_router(router=download_router)
 

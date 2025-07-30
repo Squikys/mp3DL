@@ -1,7 +1,7 @@
 import os
 import shutil
 import tempfile
-from fastapi import BackgroundTasks, FastAPI,APIRouter
+from fastapi import BackgroundTasks, FastAPI,APIRouter, Form
 from fastapi.responses import FileResponse
 from handler.downloader import download_spotify_audio,download_yt_audio
 from handler.checker import is_valid_spotify_track_url,is_valid_youtube_video
@@ -18,7 +18,7 @@ def cleanup_file(file_path: str):
 download_router=APIRouter(prefix="/api")
 
 @download_router.post("/download")
-def ping(url:str,background_tasks: BackgroundTasks):
+def ping(background_tasks: BackgroundTasks,url:str=Form(...)):
         tmpdir=tempfile.mkdtemp()
         filepath=""
         if is_valid_spotify_track_url(url=url):
