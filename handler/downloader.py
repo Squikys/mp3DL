@@ -4,14 +4,14 @@ import tempfile
 import yt_dlp
 import subprocess
 
-def download_yt_audio(youtube_url,tmpdir):
+def download_yt_audio(youtube_url:str,tmpdir:str,Bitrate:str):
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': os.path.join(tmpdir, '%(title)s.%(ext)s'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
-            'preferredquality': '192',
+            'preferredquality': f'{Bitrate}',
         }],
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -22,8 +22,8 @@ def download_yt_audio(youtube_url,tmpdir):
     
     return mp3_files[0] 
 
-def download_spotify_audio(spotify_url, tmpdir):
-    cmd = ['spotdl', '--output', tmpdir, '--format', 'mp3', '--bitrate', '320k', spotify_url]
+def download_spotify_audio(spotify_url:str, tmpdir:str,Bitrate:str):
+    cmd = ['spotdl', '--output', tmpdir, '--format', 'mp3', '--bitrate', f'{Bitrate}', spotify_url]
     subprocess.run(cmd)
     mp3_files = glob.glob(os.path.join(tmpdir, '*.mp3'))
     if not mp3_files:

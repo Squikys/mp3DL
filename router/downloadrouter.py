@@ -5,28 +5,24 @@ from fastapi import BackgroundTasks, FastAPI,APIRouter, Form
 from fastapi.responses import FileResponse
 from handler.downloader import download_spotify_audio,download_yt_audio
 from handler.checker import is_valid_spotify_track_url,is_valid_youtube_video
-def cleanup_file(file_path: str):
-    try:
-        print(f"[DEBUG] Deleting file: {file_path}")
-        os.remove(file_path)
-
-        folder = os.path.dirname(file_path)
-        print(f"[DEBUG] Deleting folder: {folder}")
-        shutil.rmtree(folder)
-    except Exception as e:
-        print(f"[ERROR] Cleanup failed: {e}")
+from handler.helper import cleanup_file
 download_router=APIRouter(prefix="/api")
 
 @download_router.post("/download")
-def ping(background_tasks: BackgroundTasks,url:str=Form(...)):
+def ping(background_tasks: BackgroundTasks,url:str=Form(...),bitrate:str=Form(...)):
         tmpdir=tempfile.mkdtemp()
         filepath=""
         if is_valid_spotify_track_url(url=url):
             print("spotify check")
-            filepath = download_spotify_audio(url, tmpdir=tmpdir)
+            quality=0
+            if bitrate=="128":quality=9
+            elif bitrate=="192": quality=6
+            elif bitrate=="256": quality=3
+            elif bitrate=="320":quality=0
+            filepath = download_spotify_audio(spotify_url=url, tmpdir=tmpdir,Bitrate=str(quality))
         elif is_valid_youtube_video(url=url):
             print("youtube check")
-            filepath = download_yt_audio(url, tmpdir=tmpdir)
+            filepath = download_yt_audio(youtube_url=url, tmpdir=tmpdir,Bitrate=bitrate)
         else :
              return{"response":"invalid URL"}
         
