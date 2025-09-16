@@ -23,7 +23,7 @@ def download_yt_audio(youtube_url,tmpdir):
     return mp3_files[0] 
 
 def download_spotify_audio(spotify_url, tmpdir):
-    cmd = ['spotdl', '--output', tmpdir, spotify_url]
+    cmd = ['spotdl', '--output', tmpdir, '--format', 'mp3', '--bitrate', '320k', spotify_url]
     subprocess.run(cmd)
     mp3_files = glob.glob(os.path.join(tmpdir, '*.mp3'))
     if not mp3_files:
