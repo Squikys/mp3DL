@@ -1,5 +1,4 @@
 import os
-import shutil
 import tempfile
 from fastapi import BackgroundTasks, FastAPI,APIRouter, Form
 from fastapi.responses import FileResponse
@@ -9,25 +8,28 @@ from handler.helper import cleanup_file
 download_router=APIRouter(prefix="/api")
 
 @download_router.post("/download")
-def ping(background_tasks: BackgroundTasks,url:str=Form(...),bitrate:str=Form(...)):
+def ping(background_tasks: BackgroundTasks,url:str=Form(...)):
         tmpdir=tempfile.mkdtemp()
         filepath=""
         if is_valid_spotify_track_url(url=url):
             print("spotify check")
-            quality=0
-            if bitrate=="128":quality=9
-            elif bitrate=="192": quality=6
-            elif bitrate=="256": quality=3
-            elif bitrate=="320":quality=0
-            filepath = download_spotify_audio(spotify_url=url, tmpdir=tmpdir,Bitrate=str(quality))
+            try:
+                filepath = download_spotify_audio(spotify_url=url, tmpdir=tmpdir)
+            except Exception as e:
+                print(e)
+                return{"response":"Something Went Wrong"}
+
         elif is_valid_youtube_video(url=url):
             print("youtube check")
-            filepath = download_yt_audio(youtube_url=url, tmpdir=tmpdir,Bitrate=bitrate)
+            try:
+                filepath = download_yt_audio(youtube_url=url, tmpdir=tmpdir)
+            except Exception as e:
+                print(e)
+                return{"response":"Something Went Wrong"}
+
         else :
              return{"response":"invalid URL"}
         
-
-        # Confirm file exists
         if not os.path.isfile(filepath):
             raise RuntimeError(f"File at path {filepath} does not exist.")
 

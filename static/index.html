@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>URL to File Converter</title>
+  <title>Youtube and Spotify to MP3</title>
   <style>
     * {
       margin: 0;
@@ -268,8 +268,8 @@
 
 <body>
   <div class="container">
-    <h1>URL Converter</h1>
-    <p class="subtitle">Convert any URL to a downloadable file</p>
+    <h1>Youtube and Spotify to MP3</h1>
+    <p class="subtitle">Convert Youtube and Spotify to a mp3 file</p>
     <div id="alertBox" class="alert-box" style="display: none">
       <span id="alertMessage">Invalid URL</span>
     </div>
@@ -278,24 +278,6 @@
       <div class="form-group">
         <label for="url">Enter URL:</label>
         <input type="url" id="url" name="url" class="url-input" placeholder="https://example.com/page" required />
-      </div>
-      <div class="format-group">
-        <div class="format-option">
-          <input type="radio" name="bitrate" id="b128" value="128">
-          <label for="b128" class="format-label">128 kbps</label>
-        </div>
-        <div class="format-option">
-          <input type="radio" name="bitrate" id="b192" value="192">
-          <label for="b192" class="format-label">192 kbps</label>
-        </div>
-        <div class="format-option">
-          <input type="radio" name="bitrate" id="b256" value="256">
-          <label for="b256" class="format-label">256 kbps</label>
-        </div>
-        <div class="format-option">
-          <input type="radio" name="bitrate" id="b320" value="320">
-          <label for="b320" class="format-label">320 kbps</label>
-        </div>
       </div>
       <button type="submit" class="submit-btn">Convert & Download</button>
     </form>
@@ -321,7 +303,6 @@
 
       const form = document.getElementById("urlForm");
       const formData = new FormData(form);
-      const bitrate = document.querySelector('input[name="bitrate"]:checked');
       const alertBox = document.getElementById("alertBox");
       const alertMessage = document.getElementById("alertMessage");
       const loader = document.getElementById("loadingOverlay");
