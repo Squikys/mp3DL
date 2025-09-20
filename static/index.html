@@ -326,6 +326,11 @@ console.log(formData.get("bitrate")); // "128", "192", "256", or "320"
               "❌ Invalid URL provided. Please check and try again.";
             alertBox.style.display = "block";
             return;
+          } else if (data.response==="Something Went Wrong"){
+            alertMessage.textContent =
+              "❌ Something Went Wrong. Please check and try again.";
+            alertBox.style.display = "block";
+            return;
           }
         } else {
           const disposition = response.headers.get("Content-Disposition");
