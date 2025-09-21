@@ -1,11 +1,12 @@
 name: Deploy Cloudflare Worker
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'proxy/**'
+    workflow_dispatch:
+    push:
+        branches:
+        - main
+        paths:
+        - 'proxy/**'
 
 jobs:
   deploy:
