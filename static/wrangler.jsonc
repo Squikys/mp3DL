@@ -1,16 +1,9 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
-{
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "testproj",
-	"compatibility_date": "2025-09-21",
-	"type":"static",
-	"assets": {
-		"directory": "./"
-	},
-	"observability": {
-		"enabled": true
-	}
-}
+name = "testproj"
+type = "static"             # IMPORTANT: tells Wrangler it's a Pages project
+project_name = "testproj"
+branch = "main"
+directory = "./dist"        # build output folder
+compatibility_date = "2025-09-21"
+
+[observability]
+enabled = true
