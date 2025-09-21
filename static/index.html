@@ -306,10 +306,9 @@
       const alertBox = document.getElementById("alertBox");
       const alertMessage = document.getElementById("alertMessage");
       const loader = document.getElementById("loadingOverlay");
-console.log(formData.get("bitrate")); // "128", "192", "256", or "320"
 
       alertBox.style.display = "none";
-      loader.style.display = "flex"; // Show loader
+      loader.style.display = "flex";
 
       try {
         const response = await fetch("/api/download", {
@@ -335,7 +334,7 @@ console.log(formData.get("bitrate")); // "128", "192", "256", or "320"
         } else {
           const disposition = response.headers.get("Content-Disposition");
           let filename = "downloaded_file";
-          console.log("Content-Disposition:", disposition);
+         // console.log("Content-Disposition:", disposition);
 
           if (disposition) {
             const utf8FilenameMatch = disposition.match(/filename\*=utf-8''(.+)/i);
