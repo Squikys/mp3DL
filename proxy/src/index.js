@@ -1,7 +1,7 @@
 
 export default {
   async fetch(request,env) {
-    const url = env.URL;
+    const url = "https://demo-api-capital.backend-capital.com/api/v1/session";
 
     console.log("Incoming request method:", request.method);
     console.log("Incoming request headers:", Object.fromEntries(request.headers));
